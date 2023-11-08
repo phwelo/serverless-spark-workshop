@@ -794,6 +794,7 @@ resource "google_dataproc_metastore_service" "datalake_metastore_creation" {
 resource "google_bigquery_dataset" "bq_dataset_creation" {
   dataset_id                  = local.bq_dataset_nm
   location                    = local.location
+  project                     = local.project_id
   delete_contents_on_destroy  = true
   depends_on = [
   module.administrator_role_grants,
