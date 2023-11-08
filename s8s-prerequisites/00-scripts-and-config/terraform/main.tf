@@ -405,6 +405,7 @@ module "vpc_creation" {
 
 resource "google_compute_global_address" "reserved_ip_for_psa_creation" {
   provider      = google-beta
+  project       = local.project_id
   name          = "private-service-access-ip"
   purpose       = "VPC_PEERING"
   network       =  "projects/${local.project_id}/global/networks/s8s-vpc-${local.project_nbr}"
