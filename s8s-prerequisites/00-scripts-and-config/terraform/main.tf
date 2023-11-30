@@ -612,6 +612,7 @@ resource "null_resource" "copy_zip_file" {
 
 resource "google_artifact_registry_repository" "artifact_registry_creation" {
     count = var.custom_container == "1" ? 1 : 0
+    project = local.project_id
     location          = local.location
     repository_id     = local.s8s_artifact_repository_nm
     description       = "Artifact repository"
@@ -703,6 +704,7 @@ module "cc_umsa_role_grants" {
 resource "google_composer_environment" "cloud_composer_env_creation" {
   count = var.create_composer == "1" ? 1 : 0
   name   = "${local.project_id}-cc2"
+  project = local.project_id
   region = local.location
   provider = google-beta
 
@@ -766,6 +768,7 @@ resource "time_sleep" "sleep_after_composer_creation" {
 resource "google_dataproc_metastore_service" "datalake_metastore_creation" {
   count = var.create_metastore == "1" ? 1 : 0
   service_id = local.dpms_nm
+  project = local.project_id
   location   = local.location
   port       = 9080
   tier       = "DEVELOPER"
